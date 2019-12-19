@@ -1,11 +1,9 @@
-## The R function cache time-consuming matrix inversion computation
-## and store contents in a special vector.When we need to reuse it
-## we can simply look it up rather than recomputing.
+## The function caches the value of inversed matrix so it can be looked up when we 
+## need to use it again.
 
-## set the value of the matrix
-## get the value of the matrix
-## set the value of the inversematrix
-## get the value of the inversematrix
+## first creates a special "vector" containing 
+## value of the matrix
+## value of the inversematrix
 
 makeCacheMatrix <- function(x = matrix()) {
   i <- NULL
@@ -21,23 +19,21 @@ makeCacheMatrix <- function(x = matrix()) {
        getmatrix = getmatrix)
 }
 
-
 ## following function calculates the inverse of the special "matrix"
 ## created with the above function. It first checks to see
 ##if the matrix has already been calculated. If so, it gets
 ## inverse from the cache and skips the computation. Otherwise,
 ## it calculates the inverse matrix of the data and sets the value in the cache via the setmatrix function
 
-
 cacheSolve <- function(x, ...) {
-        i <- x$getmatrix()
-        if(!is.null(i)){
-          message("getting cached data")
-          return(i)
-        }
-        data <- x$get()
-        i <- solve(data,...)
-        x$setmatrix(i)
-        i
-        ## Return a matrix that is the inverse of 'x'
+  i <- x$getmatrix()
+  if(!is.null(i)){
+    message("getting cached data")
+    return(i)
+  }
+  data <- x$get()
+  i <- solve(data,...)
+  x$setmatrix(i)
+  i
+  ## Return a matrix that is the inverse of 'x'
 }
